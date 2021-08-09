@@ -54,6 +54,21 @@ const decrypt = (text, key) => {
 }
 
 /**
+ * 猜测 URL 协议类型
+ * @param {string} url_str 
+ * @returns 补足协议类型的 URL
+ */
+function guess_protocol(url_str) {
+    if (!url_str.includes('://')) {
+        if (url_str.includes('.bit.edu.cn'))
+            return 'http://' + url_str;
+        else
+            return 'https://' + url_str;
+    } else
+        return url_str;
+}
+
+/**
  * 普通 URL 转 VPN URL
  * @param {string} url_str 
  * @returns VPN URL
@@ -62,15 +77,7 @@ const decrypt = (text, key) => {
  * @see decrypt_URL
  */
 function encrypt_URL(url_str) {
-    // 猜测协议类型
-    if (!url_str.includes('://')) {
-        if (url_str.includes('.bit.edu.cn'))
-            url_str = 'http://' + url_str;
-        else
-            url_str = 'https://' + url_str;
-    }
-
-    const url = new URL(url_str);
+    const url = new URL(guess_protocol(url_str));
 
     const protocol = url.protocol.slice(0, -1).toLowerCase(), // "https:" -> "https"
         port = url.port,
@@ -86,14 +93,14 @@ function encrypt_URL(url_str) {
  * VPN URL 转普通 URL
  * @param {string} url_str 
  * @returns 普通 URL
- * @version 1.0
- * @description 非 VPN URL 将原样返回。
+ * @version 1.1
+ * @description 非 VPN URL 将返回 null。
  * @see encrypt_URL
  */
 function decrypt_URL(url_str) {
-    const url = new URL(url_str);
+    const url = new URL(guess_protocol(url_str));
     if (url.hostname !== 'webvpn.bit.edu.cn' || url.pathname == '' || url.pathname == '/')
-        return url_str;
+        return null;
 
 
     const [empty_str, protocol_and_port, cipher] = url.pathname.split('/', 3),
@@ -105,7 +112,7 @@ function decrypt_URL(url_str) {
     const match_obj = protocol_and_port.match(
         /^(?<protocol>[-0-9a-z]+?)(-(?<port>\d+))?$/);
     if (match_obj == null)
-        return url_str;
+        return null;
     // 以下两个 URL API 都会自动转换。
     host_etc.protocol = match_obj.groups.protocol; // 此后 host_etc.href 结尾会有“/”
     host_etc.port = match_obj.groups.port;
