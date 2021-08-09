@@ -1,0 +1,7 @@
+#convert-url > input {
+    width: min(50em, 100%);
+}
+
+body > section {
+    margin: 2em;
+}
