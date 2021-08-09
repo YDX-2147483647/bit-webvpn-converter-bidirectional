@@ -114,7 +114,7 @@ function decrypt_URL(url_str) {
     const match_obj = protocol_and_port.match(
         /^(?<protocol>[-0-9a-z]+?)(-(?<port>\d+))?$/);
     if (match_obj == null)
-        return "无法识别 WebVPN URL 的协议或端口。"
+        throw "无法识别 WebVPN URL 的协议或端口。"
     // 以下两个 URL API 都会自动转换。
     host_etc.protocol = match_obj.groups.protocol; // 此后 host_etc.href 结尾会有“/”
     host_etc.port = match_obj.groups.port;

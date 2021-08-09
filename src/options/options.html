@@ -3,18 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./options.css">
     <title>BIT URL 转换器</title>
 </head>
 
 <body>
     <h1>BIT URL 转换器</h1>
-    <section id='convert-url'>
+    <section >
         <h2>转换内外 URL</h2>
-        <label for="original">普通校内网 URL</label>
-        <input type="url" name="original" id="original" placeholder="http://dzb.bit.edu.cn/bzhy/index.html">
-        <label for="webvpn">校外网 WebVPN URL</label>
-        <input type="url" name="webvpn" id="webvpn" placeholder="https://webvpn.bit.edu.cn/…">
+        <div id='url-converter'>
+            <label for="original">校内网 URL</label>
+            <input type="url" name="original" id="original" placeholder="http://dzb.bit.edu.cn/…">
+            <label for="webvpn">WebVPN URL</label>
+            <input type="url" name="webvpn" id="webvpn" placeholder="https://webvpn.bit.edu.cn/…/……/…">
+        </div>
+        <p>按<kbd>Enter</kbd>直接打开页面。</p>
     </section>
     <script src="./options.js" type="module"></script>
 </body>

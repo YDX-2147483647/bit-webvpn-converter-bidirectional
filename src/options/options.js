@@ -3,41 +3,62 @@ import { encrypt_URL, decrypt_URL } from '/convert.js'
 const original = document.querySelector('input#original'),
     webvpn = document.querySelector('input#webvpn');
 
-function update_webvpn() {
-    const original_URL = original.value;
-    if (!original_URL)
-        return;
+/**
+ * 更新 URL
+ * @param {string} target 要更新的目标，'original' 或 'webvpn'
+ */
+function update_URL(target) {
+    const [from, to] = target == 'original' ? [webvpn, original] : [original, webvpn];
+    const from_URL = from.value;
+    if (!from_URL)
+        throw "未填写 URL。";
 
     try {
-        const webvpn_URL = encrypt_URL(original_URL);
-        if (webvpn_URL)
-            webvpn.value = webvpn_URL;
+        const convert = target == 'original' ? decrypt_URL : encrypt_URL;
+        const to_URL = convert(from_URL);
+        if (to_URL)
+            to.value = to_URL;
     } catch (e) {
-        if (e instanceof TypeError) {
-            if (e.message.includes('Invalid URL'))
-                return;
-        }
         throw e;
     }
 }
 
-function update_original() {
-    const webvpn_URL = webvpn.value;
-    if (!webvpn_URL)
+original.addEventListener('input', event => {
+    try {
+        update_URL('webvpn');
+    } catch (e) {
+        if (e instanceof TypeError && e.message.includes('Invalid URL'))
+            return;
+    }
+});
+webvpn.addEventListener('input', event => {
+    try {
+        update_URL('original');
+    } catch (e) {
+        // 忽略所有错误
+    }
+});
+
+document.querySelector('#url-converter').addEventListener('keyup', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey)
         return;
 
-    try {
-        const original_URL = decrypt_URL(webvpn_URL);
-        if (original_URL)
-            original.value = original_URL;
-    } catch (e) {
-        if (e instanceof TypeError) {
-            if (e.message.includes('Invalid URL'))
-                return;
-        }
-        throw e;
-    }
-}
+    const event_target = event.target.id;
+    if (!['original', 'webvpn'].includes(event_target))
+        return;
 
-original.addEventListener('input', update_webvpn);
-webvpn.addEventListener('input', update_original);
+    if (event.key == 'Enter') {
+        try {
+            if (event_target == 'original') {
+                update_URL('webvpn');
+                window.open(webvpn, "_blank");
+            } else {
+                update_URL('original');
+                window.open(original, "_blank");
+            }
+            event.preventDefault();
+        } catch (error) {
+            return;
+        }
+    }
+});
