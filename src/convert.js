@@ -69,9 +69,9 @@ function guess_protocol(url_str) {
 }
 
 /**
- * 普通 URL 转 VPN URL
+ * 普通 URL 转 WebVPN URL
  * @param {string} url_str 
- * @returns VPN URL
+ * @returns WebVPN URL
  * @version 1.0
  * @description 与 0.0 版的区别：此版本返回值是完整 URL，使用 URL API（无需特别处理 IPv6）。
  * @see decrypt_URL
@@ -90,17 +90,19 @@ function encrypt_URL(url_str) {
 }
 
 /**
- * VPN URL 转普通 URL
+ * WebVPN URL 转普通 URL
  * @param {string} url_str 
  * @returns 普通 URL
- * @version 1.1
- * @description 非 VPN URL 将返回 null。
+ * @version 1.2
+ * @description 非 WebVPN URL 将报错。
  * @see encrypt_URL
  */
 function decrypt_URL(url_str) {
     const url = new URL(guess_protocol(url_str));
-    if (url.hostname !== 'webvpn.bit.edu.cn' || url.pathname == '' || url.pathname == '/')
-        return null;
+    if (url.hostname !== 'webvpn.bit.edu.cn')
+        throw RangeError("只能转换 WebVPN URL。");
+    if (url.pathname == '' || url.pathname == '/')
+        return url.href;
 
 
     const [empty_str, protocol_and_port, cipher] = url.pathname.split('/', 3),
@@ -112,7 +114,7 @@ function decrypt_URL(url_str) {
     const match_obj = protocol_and_port.match(
         /^(?<protocol>[-0-9a-z]+?)(-(?<port>\d+))?$/);
     if (match_obj == null)
-        return null;
+        return "无法识别 WebVPN URL 的协议或端口。"
     // 以下两个 URL API 都会自动转换。
     host_etc.protocol = match_obj.groups.protocol; // 此后 host_etc.href 结尾会有“/”
     host_etc.port = match_obj.groups.port;
