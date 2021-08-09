@@ -1,4 +1,4 @@
-import { encrypt_URL, decrypt_URL } from '/convert.js'
+import { encrypt_URL, decrypt_URL } from '/common/convert.js'
 
 const original = document.querySelector('input#original'),
     webvpn = document.querySelector('input#webvpn');
@@ -51,10 +51,10 @@ document.querySelector('#url-converter').addEventListener('keyup', event => {
         try {
             if (event_target == 'original') {
                 update_URL('webvpn');
-                window.open(webvpn, "_blank");
+                window.open(webvpn.value, "_blank");
             } else {
                 update_URL('original');
-                window.open(original, "_blank");
+                window.open(original.value, "_blank");
             }
             event.preventDefault();
         } catch (error) {

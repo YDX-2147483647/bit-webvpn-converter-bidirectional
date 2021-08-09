@@ -1,7 +1,7 @@
 // 源自 https://github.com/spencerwooo/bit-webvpn-converter，重写了 encrypt_URL()（原名 encryptUrl()），新增 decrypt_URL()。
 // https://github.com/spencerwooo/bit-webvpn-converter/blob/c97806011cc3113a5090d7b7f919c7d868bd090d/src/components/convert.ts
 
-import { aesjs } from "/aes-js.js";
+import { aesjs } from "./aes-js.js";
 
 const utf8 = aesjs.utils.utf8
 const hex = aesjs.utils.hex
