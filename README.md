@@ -1,28 +1,7 @@
-# 🥑 WEBVPN URL Converter
+# BIT WebＶＰＮ URL 双向转换器
 
-![](https://i.loli.net/2020/07/01/qGEYNSsoMAx9m2U.png)
+这个转换器相互转换内外 URL（普通校内网 URL 与校外网 WebＶＰＮ URL）。
 
-> 🥑 WEBVPN Converter can help you convert a BIT local area network URL into its corresponding WEBVPN URL so that you can access BIT local resources from anywhere in the world.
+> 校外无法访问普通 URL，校内无法访问 WebＶＰＮ URL。
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+转换原理源自 [spencerwooo/🥑 WEBＶＰＮ URL Converter](https://github.com/spencerwooo/bit-webＶＰＮ-converter)（及其[网页](https://webＶＰＮ.vercel.app/)）。此项目并不打算再做一个这样的网页。
