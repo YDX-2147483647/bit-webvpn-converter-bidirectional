@@ -8,8 +8,7 @@
 
 ## 安装方式
 
-### Edge（Chromium）
+1. 下载[release](https://github.com/YDX-2147483647/bit-webvpn-converter-bidirectional/releases)中的`.crx`文件并解压。（或利用仓库中的`/src/`文件夹）
+2. 访问`edge://extensions`（或`chrome://extensions`），在左下角（或右上角）打开“开发人员模式”（或“开发者模式”）。
+3. 在同页面的右上角“加载解压缩的扩展”（或左上角“加载已解压的扩展程序”），选择刚刚的文件夹。
 
-1. 下载 /src/ 文件夹。（下载后可重命名文件夹）
-2. 访问 edge://extensions/，在左下角打开“开发人员模式”。
-3. 在 edge://extensions/ 的右上角“加载解压缩的扩展”，选择刚刚下载的文件夹。
