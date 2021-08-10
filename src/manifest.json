@@ -4,8 +4,13 @@
     "version": "0.1",
     "manifest_version": 3,
     "permissions": [
+        "contextMenus",
         "tabs"
     ],
+    "background": {
+        "service_worker": "/background.js",
+        "type": "module"
+    },
     "options_page": "/options/options.html",
     "action": {
         "default_popup": "/popup/popup.html",
