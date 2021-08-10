@@ -1,0 +1,43 @@
+:root {
+    --bg-color: white;
+}
+
+body {
+    width: 10em;
+}
+
+h2 {
+    font-size: 1rem;
+    margin: 0.5em 0.25em 0.1em;
+}
+
+#webvpn button {
+    display: block;
+    width: 100%;
+
+    background-color: var(--bg-color);
+    border: none;
+    text-align: justify;
+}
+#webvpn button:hover {
+    background-color: lightgray;
+}
+
+button#copy.success::after {
+    content: '✓';
+    color: green;
+}
+button#copy.failed::after {
+    content: '✗';
+    color: red;
+}
+
+footer {
+    text-align: right;
+}
+img.icon {
+    font-size: .8em;
+    width: 1.25em;
+    height: 1.25em;
+    margin-bottom: -.2em;
+}

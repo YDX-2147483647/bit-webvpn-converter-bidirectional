@@ -3,8 +3,12 @@
     "description": "转换 BIT 内外 URL。",
     "version": "0.1",
     "manifest_version": 3,
+    "permissions": [
+        "tabs"
+    ],
     "options_page": "/options/options.html",
     "action": {
+        "default_popup": "/popup/popup.html",
         "default_icon": {
             "16": "/images/icon16.png",
             "32": "/images/icon32.png",
