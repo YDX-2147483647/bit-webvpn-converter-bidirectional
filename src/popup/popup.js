@@ -4,10 +4,12 @@ const open_btn = document.querySelector("#open"),
     copy_btn = document.querySelector("#copy");
 
 let tab_type, // 'original' 或 'webvpn'
+    tab_index,
     target_url;
 
 window.addEventListener("load", async () => {
     const [tab] = await (chrome.tabs.query({ active: true, currentWindow: true }));
+    tab_index = tab.index;
     try {
         target_url = decrypt_URL(tab.url);
         tab_type = "webvpn";
@@ -20,7 +22,10 @@ window.addEventListener("load", async () => {
 })
 
 open_btn.addEventListener('click', () => {
-    chrome.tabs.create({ url: target_url })
+    chrome.tabs.create({
+        url: target_url,
+        index: tab_index + 1
+    })
 })
 
 copy_btn.addEventListener('click', async () => {
