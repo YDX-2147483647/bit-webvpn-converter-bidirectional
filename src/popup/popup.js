@@ -1,24 +1,19 @@
-import { encrypt_URL, decrypt_URL } from '/common/convert.js'
+import { convert } from '/common/convert.js'
 
 const open_btn = document.querySelector("#open"),
     copy_btn = document.querySelector("#copy");
 
-let tab_type, // 'original' 或 'webvpn'
-    tab_index,
+let tab_index,
     target_url;
 
 window.addEventListener("load", async () => {
     const [tab] = await (chrome.tabs.query({ active: true, currentWindow: true }));
     tab_index = tab.index;
-    try {
-        target_url = decrypt_URL(tab.url);
-        tab_type = "webvpn";
-    } catch (error) {
-        target_url = encrypt_URL(tab.url);
-        tab_type = "original";
-    }
+    let to;
+    ({ url: target_url, to, } = convert(tab.url));
 
-    document.querySelector("#target-type").textContent = tab_type === 'original' ? ' WebVPN' : '校内网';
+    document.querySelector("#target-type").textContent =
+        to === 'webvpn' ? ' WebVPN' : '校内网';
 })
 
 open_btn.addEventListener('click', () => {

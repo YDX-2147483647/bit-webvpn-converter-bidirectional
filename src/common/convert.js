@@ -53,6 +53,7 @@ const decrypt = (text, key) => {
     return utf8.fromBytes(decryptBytes).slice(0, textLength)
 }
 
+
 /**
  * 猜测 URL 协议类型
  * @param {string} url_str 
@@ -76,7 +77,7 @@ function guess_protocol(url_str) {
  * @description 与 0.0 版的区别：此版本返回值是完整 URL，使用 URL API（无需特别处理 IPv6）。
  * @see decrypt_URL
  */
-function encrypt_URL(url_str) {
+export function encrypt_URL(url_str) {
     const url = new URL(guess_protocol(url_str));
 
     const protocol = url.protocol.slice(0, -1).toLowerCase(), // "https:" -> "https"
@@ -97,7 +98,7 @@ function encrypt_URL(url_str) {
  * @description 非 WebVPN URL 将报错。
  * @see encrypt_URL
  */
-function decrypt_URL(url_str) {
+export function decrypt_URL(url_str) {
     const url = new URL(guess_protocol(url_str));
     if (url.hostname !== 'webvpn.bit.edu.cn')
         throw RangeError("只能转换 WebVPN URL。");
@@ -105,7 +106,7 @@ function decrypt_URL(url_str) {
         return url.href;
 
 
-    const [empty_str, protocol_and_port, cipher] = url.pathname.split('/', 3),
+    const [, protocol_and_port, cipher] = url.pathname.split('/', 3),
         pathname_etc = url.pathname.slice(`/${protocol_and_port}/${cipher}`.length) + url.search + url.hash;
 
     const hostname = decrypt(cipher, magic_word); // hostname 无法修改
@@ -122,5 +123,27 @@ function decrypt_URL(url_str) {
     return host_etc.href.slice(0, -1) + pathname_etc;
 }
 
-
-export { encrypt_URL, decrypt_URL };
+/**
+ * 自动转换 URL
+ * @param {string} url_str 
+ * @returns {object} {url, from, to} url 是结果，from、to 是'original'或'webvpn'
+ */
+export function convert(url_str) {
+    try {
+        return {
+            url: decrypt_URL(url_str),
+            from: 'webvpn',
+            to: 'original'
+        };
+    } catch (error) {
+        if (error instanceof RangeError && error.message === '只能转换 WebVPN URL。') {
+            return {
+                url: encrypt_URL(url_str),
+                from: 'original',
+                to: 'webvpn'
+            };
+        } else {
+            throw error;
+        }
+    }
+}
