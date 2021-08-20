@@ -1,4 +1,4 @@
-import { convert } from '/common/convert.js'
+import { convert } from './common/convert.js'
 
 chrome.contextMenus.create({
     "title": '转换并在新标签页打开',

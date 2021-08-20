@@ -1,4 +1,4 @@
-import { encrypt_URL, decrypt_URL } from '/common/convert.js'
+import { encrypt_URL, decrypt_URL } from '../common/convert.js'
 
 const original = document.querySelector('input#original'),
     webvpn = document.querySelector('input#webvpn');

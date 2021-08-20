@@ -1,4 +1,4 @@
-import { convert } from '/common/convert.js'
+import { convert } from '../common/convert.js'
 
 const open_btn = document.querySelector("#open"),
     copy_btn = document.querySelector("#copy");
