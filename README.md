@@ -6,6 +6,10 @@
 
 转换原理源自 [spencerwooo/🥑 WEBVPN URL Converter](https://github.com/spencerwooo/bit-webvpn-converter)（及其[网页](https://webvpn.vercel.app/)）。此项目并不打算再做一个这样的网页，而是做成浏览器插件。
 
+> ⚠ Firefox 版及功能列表请移步[另一仓库](https://github.com/YDX-2147483647/bit-webvpn-converter-web-extension)。（这里是 Chromium 版）
+>
+> 由于此仓库 fork 而来，而源仓库针对网页，不太方便。计划逐步转移过去。
+
 ## 安装方式
 
 1. 下载[release](https://github.com/YDX-2147483647/bit-webvpn-converter-bidirectional/releases)中的`.crx`文件并解压。（或利用仓库中的`/src/`文件夹）
