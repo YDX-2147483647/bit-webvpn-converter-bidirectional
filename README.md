@@ -1,5 +1,7 @@
 # BIT WebVPN URL 双向转换器
 
+![GitHub all releases](https://img.shields.io/github/downloads/YDX-2147483647/bit-webvpn-converter-bidirectional/total)
+
 这个转换器相互转换内外 URL（普通校内网 URL 与校外网 WebVPN URL）。
 
 > 校外无法访问普通 URL，校内无法访问 WebVPN URL。
